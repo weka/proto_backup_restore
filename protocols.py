@@ -218,8 +218,10 @@ def main():
                 api.call_api('interface_group_add_port', parms=parms)
 
             log.info(f"  Creating NFS interface group {interface_group['name']} ip-range")
-            parms = {'name': interface_group['name'], 'ips': ip_list_to_range(interface_group['ips'])}
-            api.call_api('interface_group_add_ip_range', parms=parms)
+
+            if len(interface_group['ips']) != 0:
+                parms = {'name': interface_group['name'], 'ips': ip_list_to_range(interface_group['ips'])}
+                api.call_api('interface_group_add_ip_range', parms=parms)
 
         # restore SMB
         log.info(f"Restoring SMB Cluster {config['samba_get_cluster_info']['name']}")
@@ -248,8 +250,9 @@ def main():
         log.info(f"Removing NFS interface groups")
         for interface_group in config['interface_group_list']:
             log.info(f"  Removing NFS interface group {interface_group['name']} ip-range")
-            parms = {'name': interface_group['name'], 'ips': ip_list_to_range(interface_group['ips'])}
-            api.call_api('interface_group_delete_ip_range', parms=parms)
+            if len(interface_group['ips']) != 0:
+                parms = {'name': interface_group['name'], 'ips': ip_list_to_range(interface_group['ips'])}
+                api.call_api('interface_group_delete_ip_range', parms=parms)
 
             for port in interface_group['ports']:
                 log.info(f"  Removing NFS interface group {interface_group['name']} port {port['port']}")
