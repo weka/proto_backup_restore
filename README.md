@@ -1,2 +1,2 @@
-# restapi-template
-a template for python scripts that use the weka rest api
+# proto_backup_restore
+Backup or restore Weka Protocols configurations (NFS/SMB/S3)
