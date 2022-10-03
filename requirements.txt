@@ -1,0 +1,3 @@
+PyYAML~=6.0
+wekalib~=1.4.0
+wekapyutils~=1.0.0
